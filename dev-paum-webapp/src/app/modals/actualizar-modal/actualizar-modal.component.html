@@ -1,0 +1,10 @@
+<div class="modal-backdrop" *ngIf="visible" role="presentation">
+	<section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="update-modal-title">
+		<h2 id="update-modal-title">¿Actualizar registro?</h2>
+		<p>¿Está seguro de actualizar <strong>{{ registro }}</strong>?</p>
+		<div class="modal-actions">
+			<button type="button" class="secondary-button" (click)="cancelar.emit()">Cancelar</button>
+			<button type="button" class="primary-button" (click)="confirmar.emit()">Sí, actualizar</button>
+		</div>
+	</section>
+</div>

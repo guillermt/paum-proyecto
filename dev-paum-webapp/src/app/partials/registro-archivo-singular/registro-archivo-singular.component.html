@@ -1,0 +1,51 @@
+<main class="file-form-page">
+	<section class="file-form-shell" aria-labelledby="single-upload-title">
+		<header class="file-form-header">
+			<span class="material-icons header-icon" aria-hidden="true">upload_file</span>
+			<div>
+				<p class="eyebrow">Registro de archivos</p>
+				<h1 id="single-upload-title">Subir un nuevo documento</h1>
+				<p>Almacenamiento en base de datos</p>
+			</div>
+		</header>
+
+		<form #singleForm="ngForm" (ngSubmit)="submit(singleForm)" novalidate>
+			<div class="form-field">
+				<label for="single-name">Nombre del archivo</label>
+				<input id="single-name" name="nombre" type="text" [(ngModel)]="nombre"
+					placeholder="Opcional: se usará el nombre del archivo">
+			</div>
+
+			<div class="form-field">
+				<label for="single-description">Descripción</label>
+				<textarea id="single-description" name="descripcion" [(ngModel)]="descripcion" required
+					placeholder="Escribe una descripción del archivo"></textarea>
+				<span class="field-error" *ngIf="errorMessage && !descripcion.trim()">La descripción es obligatoria.</span>
+			</div>
+
+			<div class="form-field">
+				<label for="single-materia">Materia</label>
+				<select id="single-materia" name="materia" [(ngModel)]="selectedMateriaId" required>
+					<option [ngValue]="null" disabled>Selecciona una materia</option>
+					<option *ngFor="let materia of materias" [ngValue]="materia.id">
+						{{ materia.nombre }} - Semestre {{ materia.semestre }}
+					</option>
+				</select>
+				<span class="field-error" *ngIf="materiaError">{{ materiaError }}</span>
+			</div>
+
+			<div class="form-field">
+				<label for="single-file">Elegir archivo</label>
+				<input id="single-file" name="archivo" type="file" (change)="selectFile($event)"
+					accept=".pdf,.doc,.docx,.txt" required>
+				<small>Formatos válidos: PDF, DOC, DOCX o TXT</small>
+				<span class="field-error" *ngIf="fileError">{{ fileError }}</span>
+			</div>
+
+			<button class="submit-button" type="submit">Subir archivo</button>
+			<span class="form-feedback success" *ngIf="successMessage">{{ successMessage }}</span>
+			<span class="form-feedback error" *ngIf="errorMessage">{{ errorMessage }}</span>
+			<a class="back-link" routerLink="/registro-archivos">Volver a opciones</a>
+		</form>
+	</section>
+</main>

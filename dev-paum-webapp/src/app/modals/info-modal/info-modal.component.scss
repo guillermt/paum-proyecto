@@ -1,0 +1,17 @@
+.modal-backdrop { position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center; padding: 20px; background: rgba(15, 23, 42, .45); }
+.info-modal { width: min(100%, 500px); background: #fff; color: #18243a; border-radius: 10px; box-shadow: 0 18px 50px rgba(15, 23, 42, .24); }
+.info-modal-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding: 24px 24px 16px; border-bottom: 1px solid #e2e8f0; }
+.eyebrow { margin: 0 0 5px; color: #078c91; font-size: .75rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; }
+h2 { margin: 0; font-family: Nexa-Bold, sans-serif; font-size: 1.35rem; }
+.close-button { display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 50%; background: #eef2f7; color: #40536b; cursor: pointer; }
+.info-list { padding: 14px 24px; }
+.info-row { display: flex; justify-content: space-between; gap: 20px; padding: 13px 0; border-bottom: 1px solid #edf0f3; }
+.info-row:last-child { border-bottom: 0; }
+.info-row span { color: #64748b; }
+.info-row strong { max-width: 65%; overflow-wrap: anywhere; text-align: right; }
+.not-registered { padding: 30px 24px 20px; text-align: center; }
+.not-registered .material-icons { color: #078c91; font-size: 42px; }
+.not-registered p { margin: 12px 0 5px; font-weight: 700; }
+.not-registered small { color: #64748b; }
+.modal-actions { display: flex; justify-content: flex-end; padding: 16px 24px 24px; }
+.primary-button { padding: 10px 18px; border: 0; border-radius: 6px; background: #146c94; color: #fff; cursor: pointer; }

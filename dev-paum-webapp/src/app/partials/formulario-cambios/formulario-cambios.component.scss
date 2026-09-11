@@ -1,0 +1,19 @@
+.change-form {
+	display: grid;
+	gap: 10px;
+	padding: 20px;
+	background: #fff;
+	border: 1px solid #dfe3ea;
+	border-radius: 10px;
+}
+
+.change-form h2 { margin: 0 0 4px; color: #231f20; }
+.change-form input,
+.change-form textarea { width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font: inherit; }
+.change-form textarea { min-height: 90px; resize: vertical; }
+.form-error { color: #b42318; font-size: .85rem; }
+.form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
+.primary-button,
+.secondary-button { padding: 10px 16px; border: 0; border-radius: 6px; cursor: pointer; font: inherit; }
+.primary-button { background: #008da8; color: #fff; }
+.secondary-button { background: #e8edf3; color: #334155; }

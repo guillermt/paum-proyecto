@@ -1,0 +1,44 @@
+<main class="file-form-page">
+	<section class="file-form-shell" aria-labelledby="multiple-upload-title">
+		<header class="file-form-header">
+			<span class="material-icons header-icon" aria-hidden="true">drive_folder_upload</span>
+			<div>
+				<p class="eyebrow">Registro de archivos</p>
+				<h1 id="multiple-upload-title">Subir m&uacute;ltiples documentos</h1>
+				<p>Almacenamiento en base de datos</p>
+			</div>
+		</header>
+
+		<form #multipleForm="ngForm" (ngSubmit)="submit(multipleForm)" novalidate>
+			<div class="form-field">
+				<label for="multiple-name">Nombre del registro</label>
+				<input id="multiple-name" name="nombre" type="text" [(ngModel)]="nombre"
+					placeholder="Opcional: se usar&aacute; el nombre de cada archivo">
+			</div>
+
+			<div class="form-field">
+				<label for="multiple-materia">Materia</label>
+				<select id="multiple-materia" name="materia" [(ngModel)]="selectedMateriaId" required>
+					<option [ngValue]="null" disabled>Selecciona una materia</option>
+					<option *ngFor="let materia of materias" [ngValue]="materia.id">
+						{{ materia.nombre }} - Semestre {{ materia.semestre }}
+					</option>
+				</select>
+				<span class="field-error" *ngIf="materiaError">{{ materiaError }}</span>
+			</div>
+
+			<div class="form-field">
+				<label for="multiple-files">Elegir archivos</label>
+				<input id="multiple-files" name="archivos" type="file" multiple (change)="selectFiles($event)"
+					accept=".pdf,.doc,.docx,.txt" required>
+				<small>Selecciona uno o m&aacute;s archivos. Formatos v&aacute;lidos: PDF, DOC, DOCX o TXT.</small>
+				<span class="field-error" *ngIf="fileError">{{ fileError }}</span>
+			</div>
+
+			<button class="submit-button" type="submit">Subir archivos</button>
+			<span class="form-feedback success" *ngIf="successMessage">{{ successMessage }}</span>
+			<span class="form-feedback error" *ngIf="errorMessage">{{ errorMessage }}</span>
+			<a class="back-link" routerLink="/registro-archivos">Volver a opciones</a>
+		</form>
+	</section>
+</main>

@@ -1,0 +1,147 @@
+.visor-page {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+	background: #f4f7fb;
+	overflow: hidden;
+	z-index: 1000;
+}
+
+.visor-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 24px;
+	width: 100%;
+	padding: 18px 24px;
+	background: #fff;
+	border-bottom: 1px solid #dce4ee;
+	box-sizing: border-box;
+}
+
+.visor-header h1,
+.visor-header p {
+	margin: 0;
+	text-align: center;
+}
+
+.visor-header h1 {
+	color: #231f20;
+	font-size: 1.7rem;
+}
+
+.visor-header p {
+	margin-top: 6px;
+	color: #657080;
+}
+
+.visor-button {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	min-height: 42px;
+	padding: 0 16px;
+	border: 0;
+	border-radius: 6px;
+	background: #3f8edb;
+	color: #fff;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.visor-button.secondary {
+	background: #dce8f5;
+	color: #23415e;
+}
+
+.visor-button:disabled {
+	cursor: not-allowed;
+	opacity: .55;
+}
+
+.visor-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	flex: 1;
+	width: 100%;
+	margin: 0;
+	padding: 24px;
+	background: #f4f7fb;
+	color: #536273;
+	text-align: center;
+	box-sizing: border-box;
+}
+
+.visor-content.error {
+	color: #a33333;
+}
+
+.archivo-frame {
+	display: block;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	border: 0;
+	border-radius: 0;
+	background: #fff;
+	flex: 1;
+}
+
+.word-preview {
+	flex: 1;
+	width: min(100%, 900px);
+	margin: 24px auto;
+	padding: 48px 56px;
+	overflow: auto;
+	background: #fff;
+	box-shadow: 0 5px 18px rgba(20, 48, 70, .1);
+	color: #1f2937;
+	line-height: 1.6;
+	box-sizing: border-box;
+}
+
+.word-preview img {
+	max-width: 100%;
+	height: auto;
+}
+
+.word-preview table {
+	max-width: 100%;
+	border-collapse: collapse;
+}
+
+.word-preview td,
+.word-preview th {
+	padding: 6px;
+	border: 1px solid #cbd5e1;
+}
+
+.word-notice .material-icons {
+	font-size: 42px;
+	color: #078c91;
+}
+
+.download-button {
+	position: absolute;
+	right: 24px;
+	bottom: 24px;
+}
+
+@media (max-width: 700px) {
+	.visor-header {
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.visor-header > div {
+		order: -1;
+		flex-basis: 100%;
+	}
+}

@@ -1,0 +1,77 @@
+<main class="management-page">
+	<header class="management-header">
+		<div>
+			<p class="eyebrow">Administración</p>
+			<h1>Manipulación de usuarios</h1>
+			<p>Actualiza o elimina los usuarios registrados.</p>
+		</div>
+	</header>
+
+	<div class="search-bar">
+		<span class="material-icons">search</span>
+		<input type="text" placeholder="Buscar usuario..." (keyup)="aplicarFiltro($event)">
+	</div>
+
+	<p class="feedback success" *ngIf="successMessage">{{ successMessage }}</p>
+	<p class="feedback error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+	<form class="user-form" *ngIf="mostrarFormulario && usuarioSeleccionado" (ngSubmit)="actualizar(formularioUsuario)" #formulario="ngForm" novalidate>
+		<h2>Actualizar usuario</h2>
+
+		<label for="user-name">Nombre de usuario</label>
+		<input id="user-name" name="nombre_usuario" [(ngModel)]="formularioUsuario.nombre_usuario" required>
+
+		<label for="user-email">Correo electrónico</label>
+		<input id="user-email" name="email" type="email" [(ngModel)]="formularioUsuario.email" required>
+
+		<label for="user-password">Nueva contraseña (opcional)</label>
+		<input id="user-password" name="contraseña" type="password" [(ngModel)]="formularioUsuario['contraseña']" minlength="6">
+
+		<div class="form-actions">
+			<button type="button" class="secondary-button" (click)="cancelar()">Cancelar</button>
+			<button type="submit" class="primary-button" [disabled]="!formulario.form.valid">Guardar cambios</button>
+		</div>
+	</form>
+
+	<form class="user-form admin-form" *ngIf="mostrarFormularioAdmin && usuarioSeleccionado" (ngSubmit)="crearAdministrador()" novalidate>
+		<h2>Dar rol de administrador</h2>
+		<p>El usuario <strong>{{ usuarioSeleccionado.nombre_usuario }}</strong> se convertirá en administrador.</p>
+
+		<div class="form-actions">
+			<button type="button" class="secondary-button" (click)="cancelar()">Cancelar</button>
+			<button type="submit" class="primary-button">Confirmar administrador</button>
+		</div>
+	</form>
+
+	<div class="table-card" *ngIf="!cargando && dataSource.data.length">
+		<table mat-table [dataSource]="dataSource" class="management-table">
+			<ng-container matColumnDef="nombre_usuario">
+				<th mat-header-cell *matHeaderCellDef>Usuario</th>
+				<td mat-cell *matCellDef="let usuario">{{ usuario.nombre_usuario }}</td>
+			</ng-container>
+			<ng-container matColumnDef="email">
+				<th mat-header-cell *matHeaderCellDef>Correo electrónico</th>
+				<td mat-cell *matCellDef="let usuario">{{ usuario.email }}</td>
+			</ng-container>
+			<ng-container matColumnDef="rol">
+				<th mat-header-cell *matHeaderCellDef>Rol</th>
+				<td mat-cell *matCellDef="let usuario">{{ usuario.rol }}</td>
+			</ng-container>
+			<ng-container matColumnDef="acciones">
+				<th mat-header-cell *matHeaderCellDef>Acciones</th>
+				<td mat-cell *matCellDef="let usuario" class="actions-cell">
+					<button type="button" class="action admin" (click)="iniciarCrearAdministrador(usuario)" title="Dar rol de administrador" aria-label="Dar rol de administrador"><span class="material-icons">admin_panel_settings</span></button>
+					<button type="button" class="action edit" (click)="iniciarActualizar(usuario)" title="Actualizar usuario" aria-label="Actualizar usuario"><span class="material-icons">edit</span></button>
+					<button type="button" class="action delete" (click)="iniciarEliminar(usuario)" title="Eliminar usuario" aria-label="Eliminar usuario"><span class="material-icons">delete</span></button>
+				</td>
+			</ng-container>
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+		</table>
+		<mat-paginator [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons aria-label="Seleccionar página"></mat-paginator>
+	</div>
+	<p class="empty-state" *ngIf="!cargando && !dataSource.data.length">No hay usuarios registrados.</p>
+
+	<app-actualizar-modal [visible]="mostrarActualizar" [registro]="usuarioSeleccionado?.nombre_usuario || ''" (confirmar)="confirmarActualizar()" (cancelar)="cancelar()"></app-actualizar-modal>
+	<app-eliminar-modal [visible]="mostrarEliminar" [registro]="usuarioSeleccionado?.nombre_usuario || ''" (confirmar)="confirmarEliminar()" (cancelar)="cancelar()"></app-eliminar-modal>
+</main>

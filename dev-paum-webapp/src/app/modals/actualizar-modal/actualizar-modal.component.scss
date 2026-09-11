@@ -1,0 +1,8 @@
+.modal-backdrop { position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center; padding: 20px; background: rgba(15, 23, 42, .45); }
+.modal-card { width: min(440px, 100%); padding: 24px; background: #fff; border-radius: 10px; box-shadow: 0 16px 40px rgba(0, 0, 0, .2); }
+.modal-card h2 { margin: 0 0 10px; color: #231f20; }
+.modal-card p { margin: 0; color: #475569; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+.primary-button, .secondary-button { padding: 10px 16px; border: 0; border-radius: 6px; cursor: pointer; font: inherit; }
+.primary-button { background: #008da8; color: #fff; }
+.secondary-button { background: #e8edf3; color: #334155; }

@@ -1,0 +1,284 @@
+<div class="navbar-sidebar-wrapper">
+  <!-- Desktop sidebar -->
+  <nav class="scoop-side-navbar" *ngIf="!isMobileView">
+    <ul class="scoop-navbar-list">
+
+      <div routerLink="/home" routerLinkActive="active" class="scoop-navbar-item">
+        <span class="material-icons">home</span>
+        <span>Home</span>
+      </div>
+
+      <div *ngIf="canSeeRegisterItem()" routerLink="/manipular-usuarios" routerLinkActive="active" class="scoop-navbar-item">
+        <span class="material-icons">people</span>
+        <span>Usuarios</span>
+      </div>
+
+       <li *ngIf="canSeeStudentItems()" class="scoop-navbar-item dropdown-wrapper">
+        <div class="dropdown-trigger" (click)="toggleEventosDropdown('semestre1')">
+          <div class="dropdown-text">
+            <span class="material-icons">event</span>
+            <span>1er Semestre</span>
+          </div>
+          <span class="material-icons dropdown-arrow" [class.open]="openDropdowns.semestre1">expand_more</span>
+        </div>
+
+        <ul class="submenu" *ngIf="openDropdowns.semestre1">
+          <li *ngFor="let materia of materiasPorSemestre[1]" [routerLink]="['/user', materia.id]" routerLinkActive="active" class="submenu-item">
+            {{ materia.nombre }}
+          </li>
+        </ul>
+      </li>
+
+       <li *ngIf="canSeeStudentItems()" class="scoop-navbar-item dropdown-wrapper">
+        <div class="dropdown-trigger" (click)="toggleEventosDropdown('semestre2')">
+          <div class="dropdown-text">
+            <span class="material-icons">event</span>
+            <span>2do Semestre</span>
+          </div>
+          <span class="material-icons dropdown-arrow" [class.open]="openDropdowns.semestre2">expand_more</span>
+        </div>
+
+        <ul class="submenu" *ngIf="openDropdowns.semestre2">
+          <li *ngFor="let materia of materiasPorSemestre[2]" [routerLink]="['/user', materia.id]" routerLinkActive="active" class="submenu-item">
+            {{ materia.nombre }}
+          </li>
+        </ul>
+      </li>
+
+
+      <!-- Dropdown Eventos -->
+      <li *ngIf="canSeeStudentItems()" class="scoop-navbar-item dropdown-wrapper">
+        <div class="dropdown-trigger" (click)="toggleEventosDropdown('semestre3')">
+          <div class="dropdown-text">
+            <span class="material-icons">event</span>
+            <span>3er Semestre</span>
+          </div>
+          <span class="material-icons dropdown-arrow" [class.open]="openDropdowns.semestre3">expand_more</span>
+        </div>
+
+        <ul class="submenu" *ngIf="openDropdowns.semestre3">
+          <li *ngFor="let materia of materiasPorSemestre[3]" [routerLink]="['/user', materia.id]" routerLinkActive="active" class="submenu-item">
+            {{ materia.nombre }}
+          </li>
+        </ul>
+      </li>
+
+      <li *ngIf="canSeeStudentItems()" class="scoop-navbar-item dropdown-wrapper">
+        <div class="dropdown-trigger" (click)="toggleEventosDropdown('semestre4')">
+          <div class="dropdown-text">
+            <span class="material-icons">event</span>
+            <span>4to Semestre</span>
+          </div>
+          <span class="material-icons dropdown-arrow" [class.open]="openDropdowns.semestre4">expand_more</span>
+        </div>
+
+        <ul class="submenu" *ngIf="openDropdowns.semestre4">
+          <li *ngFor="let materia of materiasPorSemestre[4]" [routerLink]="['/user', materia.id]" routerLinkActive="active" class="submenu-item">
+            {{ materia.nombre }}
+          </li>
+        </ul>
+      </li>
+
+      <!-- Dropdown Archivos -->
+      <li *ngIf="isAdmin()" class="scoop-navbar-item dropdown-wrapper">
+        <div class="dropdown-trigger" (click)="toggleEventosDropdown('archivos')">
+          <div class="dropdown-text">
+            <span class="material-icons">folder</span>
+            <span>Archivos</span>
+          </div>
+          <span class="material-icons dropdown-arrow" [class.open]="openDropdowns.archivos">expand_more</span>
+        </div>
+
+        <ul class="submenu" *ngIf="openDropdowns.archivos">
+          <li routerLink="/registro-archivos" routerLinkActive="active" class="submenu-item">
+            <span class="material-icons">note_add</span>
+            <span>Registro de archivos</span>
+          </li>
+          <li routerLink="/manipulacion-archivos" routerLinkActive="active" class="submenu-item">
+            <span class="material-icons">folder_open</span>
+            <span>Manipulación de archivos</span>
+          </li>
+        </ul>
+      </li>
+
+      <!-- Dropdown Materias -->
+      <li *ngIf="isAdmin()" class="scoop-navbar-item dropdown-wrapper">
+        <div class="dropdown-trigger" (click)="toggleEventosDropdown('materias')">
+          <div class="dropdown-text">
+            <span class="material-icons">school</span>
+            <span>Materias</span>
+          </div>
+          <span class="material-icons dropdown-arrow" [class.open]="openDropdowns.materias">expand_more</span>
+        </div>
+
+        <ul class="submenu" *ngIf="openDropdowns.materias">
+          <li routerLink="/registro-materias" routerLinkActive="active" class="submenu-item">
+            <span class="material-icons">note_add</span>
+            <span>Registro de materias</span>
+          </li>
+          <li routerLink="/manipulacion-materias" routerLinkActive="active" class="submenu-item">
+            <span class="material-icons">edit_note</span>
+            <span>Manipulación de materias</span>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+    <button *ngIf="haySesionActiva()" class="scoop-logout-btn" (click)="logout(); closeSidebar()">
+      <span class="material-icons">logout</span>
+      <span>Cerrar sesión</span>
+    </button>
+  </nav>
+
+  <!-- Scoop-style top navbar -->
+  <nav class="scoop-navbar">
+    <button class="dashboard-toggle-btn" *ngIf="isMobileView" (click)="toggleSidebar()" aria-label="Abrir menú">
+      <span class="material-icons">menu</span>
+    </button>
+    <span class="scoop-navbar-logo">PAUM</span>
+    <div class="scoop-navbar-icons">
+      <button type="button" class="login-top-btn" routerLink="/login">
+        <span class="material-icons">login</span>
+        <span>Iniciar sesión</span>
+      </button>
+      <div
+        class="scoop-navbar-avatar"
+        *ngIf="userInitial"
+        [attr.title]="userName || 'Dashboard'"
+        (click)="irADashboard()"
+        style="cursor: pointer;">
+        {{ userInitial }}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile sidebar overlay and menu -->
+  <ng-container *ngIf="isMobileView">
+    <div class="mobile-sidebar-overlay" [ngClass]="{'mobile-open': mobileOpen}" (click)="closeSidebar()"></div>
+    <nav class="scoop-side-navbar" [ngClass]="{'mobile-open': mobileOpen}">
+      <ul class="scoop-navbar-list">
+
+        <li routerLink="/home" routerLinkActive="active" class="scoop-navbar-item" (click)="closeSidebar()">
+          <span class="material-icons">home</span>
+          <span>Home</span>
+        </li>
+
+        <li *ngIf="canSeeRegisterItem()" routerLink="/manipular-usuarios" routerLinkActive="active" class="scoop-navbar-item" (click)="closeSidebar()">
+          <span class="material-icons">people</span>
+          <span>Usuarios</span>
+        </li>
+
+        <li *ngIf="canSeeStudentItems()" class="scoop-navbar-item dropdown-wrapper">
+          <div class="dropdown-trigger" (click)="toggleEventosDropdown('semestre1')">
+            <div class="dropdown-text">
+              <span class="material-icons">event</span>
+              <span>1er Semestre</span>
+            </div>
+            <span class="material-icons dropdown-arrow" [class.open]="openDropdowns.semestre1">expand_more</span>
+          </div>
+
+          <ul class="submenu" *ngIf="openDropdowns.semestre1">
+            <li *ngFor="let materia of materiasPorSemestre[1]" [routerLink]="['/user', materia.id]" class="submenu-item" (click)="closeSidebar()">
+              {{ materia.nombre }}
+            </li>
+          </ul>
+        </li>
+
+        <li *ngIf="canSeeStudentItems()" class="scoop-navbar-item dropdown-wrapper">
+          <div class="dropdown-trigger" (click)="toggleEventosDropdown('semestre2')">
+            <div class="dropdown-text">
+              <span class="material-icons">event</span>
+              <span>2do Semestre</span>
+            </div>
+            <span class="material-icons dropdown-arrow" [class.open]="openDropdowns.semestre2">expand_more</span>
+          </div>
+
+          <ul class="submenu" *ngIf="openDropdowns.semestre2">
+            <li *ngFor="let materia of materiasPorSemestre[2]" [routerLink]="['/user', materia.id]" class="submenu-item" (click)="closeSidebar()">
+              {{ materia.nombre }}
+            </li>
+          </ul>
+        </li>
+
+        <li *ngIf="canSeeStudentItems()" class="scoop-navbar-item dropdown-wrapper">
+          <div class="dropdown-trigger" (click)="toggleEventosDropdown('semestre3')">
+            <div class="dropdown-text">
+              <span class="material-icons">event</span>
+              <span>3er Semestre</span>
+            </div>
+            <span class="material-icons dropdown-arrow" [class.open]="openDropdowns.semestre3">expand_more</span>
+          </div>
+
+          <ul class="submenu" *ngIf="openDropdowns.semestre3">
+            <li *ngFor="let materia of materiasPorSemestre[3]" [routerLink]="['/user', materia.id]" class="submenu-item" (click)="closeSidebar()">
+              {{ materia.nombre }}
+            </li>
+          </ul>
+        </li>
+
+        <li *ngIf="canSeeStudentItems()" class="scoop-navbar-item dropdown-wrapper">
+          <div class="dropdown-trigger" (click)="toggleEventosDropdown('semestre4')">
+            <div class="dropdown-text">
+              <span class="material-icons">event</span>
+              <span>4to Semestre</span>
+            </div>
+            <span class="material-icons dropdown-arrow" [class.open]="openDropdowns.semestre4">expand_more</span>
+          </div>
+
+          <ul class="submenu" *ngIf="openDropdowns.semestre4">
+            <li *ngFor="let materia of materiasPorSemestre[4]" [routerLink]="['/user', materia.id]" class="submenu-item" (click)="closeSidebar()">
+              {{ materia.nombre }}
+            </li>
+          </ul>
+        </li>
+
+        <li *ngIf="isAdmin()" class="scoop-navbar-item dropdown-wrapper">
+          <div class="dropdown-trigger" (click)="toggleEventosDropdown('archivos')">
+            <div class="dropdown-text">
+              <span class="material-icons">folder</span>
+              <span>Archivos</span>
+            </div>
+            <span class="material-icons dropdown-arrow" [class.open]="openDropdowns.archivos">expand_more</span>
+          </div>
+
+          <ul class="submenu" *ngIf="openDropdowns.archivos">
+            <li routerLink="/registro-archivos" class="submenu-item" (click)="closeSidebar()">
+              <span class="material-icons">note_add</span>
+              <span>Registro de archivos</span>
+            </li>
+            <li routerLink="/manipulacion-archivos" class="submenu-item" (click)="closeSidebar()">
+              <span class="material-icons">folder_open</span>
+              <span>Manipulación de archivos</span>
+            </li>
+          </ul>
+        </li>
+
+        <li *ngIf="isAdmin()" class="scoop-navbar-item dropdown-wrapper">
+          <div class="dropdown-trigger" (click)="toggleEventosDropdown('materias')">
+            <div class="dropdown-text">
+              <span class="material-icons">school</span>
+              <span>Materias</span>
+            </div>
+            <span class="material-icons dropdown-arrow" [class.open]="openDropdowns.materias">expand_more</span>
+          </div>
+
+          <ul class="submenu" *ngIf="openDropdowns.materias">
+            <li routerLink="/registro-materias" class="submenu-item" (click)="closeSidebar()">
+              <span class="material-icons">note_add</span>
+              <span>Registro de materias</span>
+            </li>
+            <li routerLink="/manipulacion-materias" class="submenu-item" (click)="closeSidebar()">
+              <span class="material-icons">edit_note</span>
+              <span>Manipulación de materias</span>
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+      <button *ngIf="haySesionActiva()" class="scoop-logout-btn" (click)="logout(); closeSidebar()">
+        <span class="material-icons">logout</span>
+        <span>Cerrar sesión</span>
+      </button>
+    </nav>
+  </ng-container>
+<!-- end navbar-sidebar-wrapper -->

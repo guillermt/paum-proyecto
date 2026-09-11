@@ -1,0 +1,49 @@
+<main class="file-form-page">
+  <section class="file-form-shell" aria-labelledby="materias-title">
+    <header class="file-form-header">
+      <span class="material-icons header-icon" aria-hidden="true">school</span>
+      <div>
+        <p class="eyebrow">Registro de materias</p>
+        <h1 id="materias-title">Registrar nueva materia</h1>
+        <p>Gestiona las asignaturas del sistema</p>
+      </div>
+    </header>
+
+    <form #materiaForm="ngForm" (ngSubmit)="submit(materiaForm)" novalidate>
+      <div class="form-field">
+        <label for="materia-nombre">Nombre</label>
+        <input
+          id="materia-nombre"
+          name="nombre"
+          type="text"
+          [(ngModel)]="nombre"
+          required
+          placeholder="Ejemplo: Anatomia"
+        >
+        <span class="field-error" *ngIf="nombreError">{{ nombreError }}</span>
+      </div>
+
+      <div class="form-field">
+        <label for="materia-semestre">Semestre</label>
+        <input
+          id="materia-semestre"
+          name="semestre"
+          type="number"
+          [(ngModel)]="semestre"
+          min="1"
+          max="4"
+          step="1"
+          required
+          placeholder="Ingrese un número del 1 al 4"
+        >
+        <small>Solo se permite un número del 1 al 4.</small>
+        <span class="field-error" *ngIf="semestreError">{{ semestreError }}</span>
+      </div>
+
+      <button class="submit-button" type="submit">Registrar materia</button>
+      <span class="form-feedback success" *ngIf="successMessage">{{ successMessage }}</span>
+      <span class="form-feedback error" *ngIf="errorMessage">{{ errorMessage }}</span>
+      <a class="back-link" routerLink="/user">Volver</a>
+    </form>
+  </section>
+</main>

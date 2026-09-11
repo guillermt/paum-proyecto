@@ -1,0 +1,72 @@
+<main class="home-page">
+	<section class="home-hero">
+		<div class="hero-copy">
+			<span class="eyebrow">PAUM · Biblioteca académica</span>
+			<h1>Hola, {{ nombreUsuario }}</h1>
+			<p>Encuentra el material de tus materias y continúa donde lo dejaste.</p>
+			<div class="hero-actions">
+				<a routerLink="/user" class="primary-action">
+					<span class="material-icons">local_library</span>
+					Explorar archivos
+				</a>
+				<button type="button" class="secondary-action" (click)="abrirInformacion()">
+					<span class="material-icons">info</span>
+					Información
+				</button>
+			</div>
+		</div>
+		<img src="assets/images/paum.jpg" alt="Campus universitario" class="hero-image">
+	</section>
+
+	<app-info-modal
+		[visible]="mostrarInfo"
+		[registrado]="usuarioRegistrado"
+		[nombre]="nombreUsuario"
+		[correo]="correoUsuario"
+		[rol]="rolUsuario"
+		[idUsuario]="idUsuario"
+		(cerrar)="cerrarInformacion()">
+	</app-info-modal>
+
+	<section class="home-summary" aria-label="Resumen académico">
+		<div class="summary-item">
+			<span class="material-icons">school</span>
+			<div><strong>{{ materias.length }}</strong><span>materias registradas</span></div>
+		</div>
+		<div class="summary-item">
+			<span class="material-icons">layers</span>
+			<div><strong>{{ semestres.length }}</strong><span>semestres disponibles</span></div>
+		</div>
+		<div class="summary-item">
+			<span class="material-icons">auto_stories</span>
+			<div><strong>24/7</strong><span>acceso al contenido</span></div>
+		</div>
+	</section>
+
+	<section class="subjects-section">
+		<div class="section-heading">
+			<div>
+				<span class="eyebrow">Tu recorrido</span>
+				<h2>Materias por semestre</h2>
+			</div>
+			<a routerLink="/user" class="text-action">Ver biblioteca <span class="material-icons">arrow_forward</span></a>
+		</div>
+
+		<p *ngIf="cargando" class="feedback"><span class="material-icons">sync</span>Cargando materias...</p>
+		<p *ngIf="error" class="feedback error"><span class="material-icons">error_outline</span>No se pudieron obtener las materias.</p>
+		<p *ngIf="!cargando && !error && !materias.length" class="feedback"><span class="material-icons">inbox</span>Aún no hay materias registradas.</p>
+
+		<div class="semester-grid" *ngIf="!cargando && !error">
+			<article class="semester-card" *ngFor="let semestre of semestres">
+				<div class="semester-number">{{ semestre | number:'2.0-0' }}</div>
+				<div class="semester-content">
+					<h3>{{ nombreSemestre(semestre) }}</h3>
+					<span>{{ materiasPorSemestre[semestre].length }} materias</span>
+					<a *ngFor="let materia of materiasPorSemestre[semestre] | slice:0:3" [routerLink]="['/user', materia.id]" class="subject-link">
+						{{ materia.nombre }} <span class="material-icons">chevron_right</span>
+					</a>
+				</div>
+			</article>
+		</div>
+	</section>
+</main>

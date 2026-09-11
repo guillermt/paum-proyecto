@@ -1,0 +1,102 @@
+<div class="archivos-page">
+
+  <!-- ENCABEZADO -->
+  <header class="page-header">
+    <h1 class="page-title">
+      {{ getUserRole() === 'internauta' ? 'Bienvenido' : 'Bienvenido ' + nombreUsuario }}
+    </h1>
+    <p class="page-subtitle">{{ materiaId ? 'Archivos de la materia' : 'Todos los archivos' }}</p>
+    <p class="page-subtitle page-subtitle--materia" *ngIf="nombreMateria">
+      {{ nombreMateria }}
+    </p>
+  </header>
+
+  <!-- BUSCADOR -->
+  <div class="search-bar">
+    <span class="material-icons search-icon">search</span>
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Buscar archivo..."
+      (keyup)="aplicarFiltro($event)">
+  </div>
+
+  <!-- ESTADOS: cargando / error / vacío -->
+  <div class="state-message" *ngIf="cargando">
+    <span class="material-icons">hourglass_empty</span>
+    Cargando archivos...
+  </div>
+
+  <div class="state-message state-message--warning" *ngIf="!cargando && errorMessage">
+    <span class="material-icons">error_outline</span>
+    {{ errorMessage }}
+  </div>
+
+  <div class="state-message state-message--warning" *ngIf="!cargando && !errorMessage && !dataSource.data.length">
+    <span class="material-icons">folder_off</span>
+    {{ materiaId ? 'No se obtuvieron archivos relacionados con esta materia.' : 'No hay archivos registrados.' }}
+  </div>
+
+  <!-- TABLA -->
+  <div class="table-card" *ngIf="!cargando && dataSource.data.length">
+    <table mat-table [dataSource]="dataSource" matSort class="archivos-table">
+
+      <!-- NOMBRE -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Nombre del archivo
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <span class="material-icons file-icon">description</span>
+          {{ element.nombre }}
+        </td>
+      </ng-container>
+
+      <!-- VER -->
+      <ng-container matColumnDef="ver">
+        <th mat-header-cell *matHeaderCellDef class="col-accion">Ver</th>
+        <td mat-cell *matCellDef="let element" class="col-accion">
+          <button
+            *ngIf="puedeVerArchivo()"
+            type="button"
+            class="action-btn action-btn--ver"
+            [routerLink]="materiaId ? ['/visor-archivo', materiaId, element.id] : ['/visor-archivo', element.id]"
+            aria-label="Visualizar archivo"
+            title="Visualizar archivo">
+            <span class="material-icons">visibility</span>
+          </button>
+          <span *ngIf="!puedeVerArchivo()" class="role-lock" aria-label="No disponible para este rol">—</span>
+        </td>
+      </ng-container>
+
+      <!-- DESCARGAR -->
+      <ng-container matColumnDef="descargar">
+        <th mat-header-cell *matHeaderCellDef class="col-accion">Descargar</th>
+        <td mat-cell *matCellDef="let element" class="col-accion">
+          <button
+            *ngIf="puedeDescargarArchivo()"
+            type="button"
+            class="action-btn action-btn--descargar"
+            (click)="descargarArchivo(element)"
+            aria-label="Descargar archivo"
+            title="Descargar archivo">
+            <span class="material-icons">download</span>
+          </button>
+          <span *ngIf="!puedeDescargarArchivo()" class="role-lock" aria-label="No disponible para este rol">—</span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <mat-paginator
+      [pageSize]="5"
+      [pageSizeOptions]="[5]"
+      showFirstLastButtons
+      aria-label="Seleccionar página">
+    </mat-paginator>
+  </div>
+
+</div>

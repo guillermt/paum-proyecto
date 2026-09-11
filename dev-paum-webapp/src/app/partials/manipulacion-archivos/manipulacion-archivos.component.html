@@ -1,0 +1,53 @@
+<main class="management-page">
+	<header class="management-header">
+		<div>
+			<p class="eyebrow">Administración</p>
+			<h1>Manipulación de archivos</h1>
+			<p>Actualiza o elimina los archivos registrados.</p>
+		</div>
+	</header>
+
+	<div class="search-bar">
+		<span class="material-icons">search</span>
+		<input type="text" placeholder="Buscar archivo..." (keyup)="aplicarFiltro($event)">
+	</div>
+
+	<p class="feedback success" *ngIf="successMessage">{{ successMessage }}</p>
+	<p class="feedback error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+	<app-formulario-cambios
+		*ngIf="mostrarFormulario && archivoSeleccionado"
+		tipo="archivo"
+		[nombre]="archivoSeleccionado.nombre"
+		[descripcion]="archivoSeleccionado.descripcion || ''"
+		(guardar)="actualizar($event)"
+		(cancelar)="cancelar()">
+	</app-formulario-cambios>
+
+	<div class="table-card" *ngIf="!cargando && dataSource.data.length">
+		<table mat-table [dataSource]="dataSource" class="management-table">
+			<ng-container matColumnDef="nombre">
+				<th mat-header-cell *matHeaderCellDef>Nombre</th>
+				<td mat-cell *matCellDef="let archivo">{{ archivo.nombre }}</td>
+			</ng-container>
+			<ng-container matColumnDef="descripcion">
+				<th mat-header-cell *matHeaderCellDef>Descripción</th>
+				<td mat-cell *matCellDef="let archivo">{{ archivo.descripcion || 'Sin descripción' }}</td>
+			</ng-container>
+			<ng-container matColumnDef="acciones">
+				<th mat-header-cell *matHeaderCellDef>Acciones</th>
+				<td mat-cell *matCellDef="let archivo" class="actions-cell">
+					<button type="button" class="action edit" (click)="iniciarActualizar(archivo)" title="Actualizar archivo" aria-label="Actualizar archivo"><span class="material-icons">edit</span></button>
+					<button type="button" class="action delete" (click)="iniciarEliminar(archivo)" title="Eliminar archivo" aria-label="Eliminar archivo"><span class="material-icons">delete</span></button>
+				</td>
+			</ng-container>
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+		</table>
+		<mat-paginator [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons aria-label="Seleccionar página"></mat-paginator>
+	</div>
+	<p class="empty-state" *ngIf="!cargando && !dataSource.data.length">No hay archivos registrados.</p>
+
+	<app-actualizar-modal [visible]="mostrarActualizar" [registro]="archivoSeleccionado?.nombre || ''" (confirmar)="confirmarActualizar()" (cancelar)="cancelar()"></app-actualizar-modal>
+	<app-eliminar-modal [visible]="mostrarEliminar" [registro]="archivoSeleccionado?.nombre || ''" (confirmar)="confirmarEliminar()" (cancelar)="cancelar()"></app-eliminar-modal>
+</main>

@@ -1,0 +1,29 @@
+.management-page { padding: 24px clamp(16px, 3vw, 32px); color: #231f20; }
+.management-header h1 { margin: 0 0 6px; font-family: Nexa-Bold, sans-serif; }
+.management-header p { margin: 0; color: #64748b; }
+.eyebrow { color: #008da8 !important; text-transform: uppercase; font-size: .8rem; letter-spacing: .08em; }
+.search-bar { display: flex; align-items: center; gap: 10px; max-width: 520px; margin: 22px 0 16px; padding: 10px 14px; background: #fff; border: 1px solid #dfe3ea; border-radius: 8px; }
+.search-bar input { flex: 1; border: 0; outline: 0; font: inherit; }
+.feedback { padding: 10px 14px; border-radius: 6px; }
+.success { background: #e8f6ed; color: #176b36; }
+.error { background: #fcebea; color: #a33333; }
+.user-form { display: grid; gap: 8px; max-width: 640px; margin: 16px 0; padding: 22px; background: #fff; border-radius: 10px; box-shadow: 0 4px 18px rgba(0,0,0,.08); }
+.user-form h2 { margin: 0 0 8px; font-family: Nexa-Bold, sans-serif; }
+.user-form input { min-height: 38px; padding: 0 10px; border: 1px solid #cbd5e1; border-radius: 6px; font: inherit; }
+.user-form input[readonly] { background: #f1f5f9; color: #64748b; }
+.admin-form { border-left: 4px solid #146c94; }
+.admin-form p { margin: 0 0 8px; color: #64748b; }
+.form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 12px; }
+.primary-button, .secondary-button { padding: 10px 16px; border: 0; border-radius: 6px; cursor: pointer; }
+.primary-button { background: #146c94; color: #fff; }
+.secondary-button { background: #e2e8f0; color: #334155; }
+.table-card { width: min(100%, 1100px); overflow-x: auto; overflow-y: hidden; margin: 16px auto 0; background: #fff; border-radius: 10px; box-shadow: 0 4px 18px rgba(0,0,0,.08); }
+.management-table { width: 100%; }
+.management-table th { background: #cfe0fa; font-family: Nexa-Bold, sans-serif; }
+.management-table th, .management-table td { padding: 14px 18px; }
+.actions-cell { width: 170px; white-space: nowrap; }
+.action { width: 38px; height: 38px; margin-right: 8px; border: 1px solid; border-radius: 50%; cursor: pointer; }
+.edit { color: #146c94; background: #eef8fc; border-color: #a7d7e5; }
+.delete { color: #b42318; background: #fff1f0; border-color: #f0aaa4; }
+.admin { color: #146c94; background: #eef8fc; border-color: #a7d7e5; }
+.empty-state { padding: 22px; background: #fff; border-radius: 8px; color: #64748b; }

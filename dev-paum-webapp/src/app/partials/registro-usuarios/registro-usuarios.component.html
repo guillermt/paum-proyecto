@@ -1,0 +1,78 @@
+<div class="registro-container">
+  <div class="registro-card">
+    <h2 class="registro-title">Registro de Usuario</h2>
+
+    <form #registroForm="ngForm" (ngSubmit)="registrar()" class="registro-form">
+
+      <!-- Nombre de usuario -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nombre de usuario</mat-label>
+        <input matInput
+               [(ngModel)]="usuario.nombre_usuario"
+               name="nombre_usuario"
+               required
+               #nombre_usuario="ngModel"
+               placeholder="Ej. juan_perez"
+               (keypress)="soloLetras($event)">
+        <mat-error *ngIf="errors.nombre_usuario">{{ errors.nombre_usuario }}</mat-error>
+      </mat-form-field>
+
+      <!-- Correo electrónico -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput
+               [(ngModel)]="usuario.email"
+               name="email"
+               required
+               #email="ngModel"
+               type="email"
+               placeholder="ejemplo@correo.com"
+               [disabled]="editar">
+        <mat-error *ngIf="errors.email">{{ errors.email }}</mat-error>
+      </mat-form-field>
+
+      <!-- Contraseña (solo si no se edita) -->
+      <mat-form-field appearance="outline" class="full-width" *ngIf="!editar">
+        <mat-label>Contraseña</mat-label>
+        <input matInput
+               [(ngModel)]="usuario['contraseña']"
+               name="contraseña"
+               required
+               #contraseña="ngModel"
+               [type]="inputType_1"
+               placeholder="Mínimo 6 caracteres">
+        <button mat-icon-button matSuffix type="button" (click)="togglePassword('1')">
+          <mat-icon>{{ hide_1 ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="errors['contraseña']">{{ errors['contraseña'] }}</mat-error>
+      </mat-form-field>
+
+      <!-- Confirmar contraseña (solo si no se edita) -->
+      <mat-form-field appearance="outline" class="full-width" *ngIf="!editar">
+        <mat-label>Confirmar contraseña</mat-label>
+        <input matInput
+               [(ngModel)]="usuario['confirmar_contraseña']"
+               name="confirmar_contraseña"
+               required
+               #confirmar_contraseña="ngModel"
+               [type]="inputType_2"
+               placeholder="Repite la contraseña">
+        <button mat-icon-button matSuffix type="button" (click)="togglePassword('2')">
+          <mat-icon>{{ hide_2 ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="errors['confirmar_contraseña']">{{ errors['confirmar_contraseña'] }}</mat-error>
+      </mat-form-field>
+
+      <!-- Botones -->
+      <div class="button-row">
+        <button mat-stroked-button color="warn" type="button" (click)="regresar()" class="btn-cancel">
+          Cancelar
+        </button>
+        <button mat-flat-button color="primary" type="submit" class="btn-submit" [disabled]="!registroForm.form.valid">
+          {{ editar ? 'Actualizar' : 'Registrar' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

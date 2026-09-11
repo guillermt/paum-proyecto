@@ -1,0 +1,10 @@
+<div class="modal-backdrop" *ngIf="visible" role="presentation">
+	<section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+		<h2 id="delete-modal-title">¿Eliminar registro?</h2>
+		<p>Esta acción eliminará <strong>{{ registro }}</strong> y sus relaciones. ¿Está seguro?</p>
+		<div class="modal-actions">
+			<button type="button" class="secondary-button" (click)="cancelar.emit()">Cancelar</button>
+			<button type="button" class="danger-button" (click)="confirmar.emit()">Sí, eliminar</button>
+		</div>
+	</section>
+</div>

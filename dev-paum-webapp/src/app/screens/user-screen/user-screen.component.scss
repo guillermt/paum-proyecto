@@ -1,0 +1,369 @@
+/* =========================================================
+   FIX GLOBAL: box-sizing evita que paddings sumen ancho extra
+   ========================================================= */
+
+.archivos-page,
+.archivos-page * {
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   Sin max-width fijo: usa todo el ancho que el layout le da
+   ========================================================= */
+
+.archivos-page {
+  width: 100%;
+  min-height: calc(100vh - 56px);
+  max-height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  padding: 18px clamp(16px, 3vw, 32px) 12px;
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.page-header {
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.page-title {
+  margin: 0 0 4px 0;
+  font-family: Nexa-Bold, sans-serif;
+  font-size: clamp(1.6rem, 2.2vw, 2.3rem);
+  color: #231F20;
+}
+
+.page-subtitle {
+  margin: 0;
+  font-family: Nexa-Bold, sans-serif;
+  font-size: clamp(1.2rem, 1.6vw, 1.6rem);
+  color: #4a4a4a;
+}
+
+.page-subtitle--materia {
+  margin-top: 6px;
+  color: #1b5f7b;
+  font-size: clamp(1.05rem, 1.2vw, 1.4rem);
+}
+
+
+/* =========================================================
+   BUSCADOR
+   Rediseñado como caja con icono, sin depender de mat-form-field
+   ========================================================= */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  max-width: 520px;
+
+  padding: 10px 16px;
+  margin-bottom: 16px;
+
+  background: #ffffff;
+  border: 1px solid #dfe3ea;
+  border-radius: 10px;
+
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0;
+}
+
+.search-bar:focus-within {
+  border-color: #008da8;
+  box-shadow: 0 0 0 3px rgba(0, 141, 168, 0.12);
+}
+
+.search-icon {
+  color: #8a8f98;
+  font-size: 22px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: Nexa, sans-serif;
+  font-size: 15px;
+  color: #231F20;
+  background: transparent;
+}
+
+
+/* =========================================================
+   MENSAJES DE ESTADO (cargando / error / vacío)
+   ========================================================= */
+
+.state-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+
+  border-radius: 10px;
+
+  font-family: Nexa, sans-serif;
+  font-size: 15px;
+  color: #231F20;
+
+  background: #eef2f7;
+}
+
+.state-message--warning {
+  background: #FFF3CD;
+}
+
+
+/* =========================================================
+   TARJETA DE LA TABLA
+   ========================================================= */
+
+.table-card {
+  width: min(100%, 1100px);
+  margin-left: auto;
+  margin-right: auto;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+
+.archivos-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+
+/* =========================================================
+   ENCABEZADO DE LA TABLA
+   ========================================================= */
+
+.archivos-table .mat-mdc-header-cell {
+  height: 52px;
+  padding: 0 20px;
+
+  background: #cfe0fa;
+  border-bottom: 1px solid #b7c8e3;
+
+  font-family: Nexa-Bold, sans-serif !important;
+  font-size: 15px !important;
+  color: #231F20 !important;
+
+  text-align: left;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   CELDAS
+   ========================================================= */
+
+.archivos-table .mat-mdc-cell {
+  height: 52px;
+  padding: 0 20px;
+
+  border-bottom: 1px solid #eef0f3;
+
+  font-family: Nexa, sans-serif !important;
+  font-size: 14px !important;
+  color: #231F20 !important;
+
+  background: #ffffff;
+  text-align: left;
+}
+
+.archivos-table .mat-mdc-row:last-child .mat-mdc-cell {
+  border-bottom: none;
+}
+
+.archivos-table .mat-mdc-row:hover .mat-mdc-cell {
+  background: #f5f8fc;
+}
+
+.file-icon {
+  vertical-align: middle;
+  margin-right: 10px;
+  font-size: 20px;
+  color: #8a8f98;
+}
+
+
+/* =========================================================
+   COLUMNAS DE ACCIÓN (Ver / Descargar)
+   ========================================================= */
+
+.col-accion {
+  width: 120px;
+  text-align: center !important;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+  padding: 0;
+
+  border: 1px solid #b9d9e1;
+  border-radius: 50%;
+
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.action-btn--ver {
+  color: #008da8;
+  background: #effafd;
+}
+
+.action-btn--ver:hover {
+  color: #ffffff;
+  background: #008da8;
+  transform: translateY(-1px);
+}
+
+.action-btn--descargar {
+  color: #2e7d32;
+  background: #eef8ef;
+}
+
+.action-btn--descargar:hover {
+  color: #ffffff;
+  background: #2e7d32;
+  transform: translateY(-1px);
+}
+
+.action-btn .material-icons {
+  font-size: 20px;
+}
+
+.role-lock {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #9aa4b2;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   PAGINADOR
+   ========================================================= */
+
+.table-card mat-paginator {
+  width: 100%;
+  background: #ffffff;
+  border-top: 1px solid #eeeeee;
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 991px) {
+  .archivos-page {
+    padding: 28px 20px;
+  }
+}
+
+
+/* =========================================================
+   TABLET PEQUEÑA
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1.7rem;
+  }
+
+  .page-subtitle {
+    font-size: 1.3rem;
+  }
+
+  .archivos-table .mat-mdc-header-cell,
+  .archivos-table .mat-mdc-cell {
+    font-size: 14px !important;
+    padding: 0 16px;
+  }
+
+  .col-accion {
+    width: 90px;
+  }
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 575px) {
+  .archivos-page {
+    padding: 20px 12px;
+  }
+
+  .page-title {
+    font-size: 1.4rem;
+  }
+
+  .page-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .search-bar {
+    max-width: 100%;
+  }
+
+  .archivos-table .mat-mdc-header-cell {
+    height: 52px;
+    padding: 0 12px;
+    font-size: 13px !important;
+  }
+
+  .archivos-table .mat-mdc-cell {
+    height: 58px;
+    padding: 0 12px;
+    font-size: 13px !important;
+  }
+
+  .col-accion {
+    width: 64px;
+  }
+
+  .action-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .action-btn .material-icons {
+    font-size: 18px;
+  }
+}

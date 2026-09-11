@@ -1,0 +1,34 @@
+<main class="upload-page">
+	<section class="upload-panel" aria-labelledby="upload-title">
+		<div class="upload-heading">
+			<span class="material-icons upload-heading-icon" aria-hidden="true">folder</span>
+			<div>
+				<p class="eyebrow">Registro de archivos</p>
+				<h1 id="upload-title">&iquest;Qu&eacute; deseas subir?</h1>
+				<p class="upload-description">
+					Selecciona el tipo de carga para continuar con el registro de tus archivos.
+				</p>
+			</div>
+		</div>
+
+		<div class="upload-options">
+			<a class="upload-card" routerLink="/registro-archivo-singular">
+				<span class="upload-card-icon material-icons" aria-hidden="true">upload_file</span>
+				<span class="upload-card-content">
+					<span class="upload-card-title">Subir un archivo</span>
+					<span class="upload-card-description">Selecciona un solo archivo desde tu dispositivo.</span>
+					<span class="upload-card-action">Elegir archivo <span class="material-icons" aria-hidden="true">arrow_forward</span></span>
+				</span>
+			</a>
+
+			<a class="upload-card" routerLink="/registro-archivo-multiples">
+				<span class="upload-card-icon material-icons" aria-hidden="true">drive_folder_upload</span>
+				<span class="upload-card-content">
+					<span class="upload-card-title">Subir m&uacute;ltiples archivos</span>
+					<span class="upload-card-description">Selecciona varios archivos para cargarlos juntos.</span>
+					<span class="upload-card-action">Elegir archivos <span class="material-icons" aria-hidden="true">arrow_forward</span></span>
+				</span>
+			</a>
+		</div>
+	</section>
+</main>

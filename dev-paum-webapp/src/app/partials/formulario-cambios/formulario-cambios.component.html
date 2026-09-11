@@ -1,0 +1,24 @@
+<form class="change-form" (ngSubmit)="submit()" novalidate>
+	<h2>Actualizar {{ tipo === 'materia' ? 'materia' : 'archivo' }}</h2>
+
+	<label for="change-name">Nombre</label>
+	<input id="change-name" name="nombre" type="text" [(ngModel)]="nombre" required>
+	<span class="form-error" *ngIf="nombreError">{{ nombreError }}</span>
+
+	<ng-container *ngIf="tipo === 'materia'">
+		<label for="change-semester">Semestre</label>
+		<input id="change-semester" name="semestre" type="number" min="1" max="12" step="1" [(ngModel)]="semestre" required>
+		<span class="form-error" *ngIf="semestreError">{{ semestreError }}</span>
+	</ng-container>
+
+	<ng-container *ngIf="tipo === 'archivo'">
+		<label for="change-description">Descripción</label>
+		<textarea id="change-description" name="descripcion" [(ngModel)]="descripcion" required></textarea>
+		<span class="form-error" *ngIf="descripcionError">{{ descripcionError }}</span>
+	</ng-container>
+
+	<div class="form-actions">
+		<button type="button" class="secondary-button" (click)="cancelar.emit()">Cancelar</button>
+		<button type="submit" class="primary-button">Guardar cambios</button>
+	</div>
+</form>

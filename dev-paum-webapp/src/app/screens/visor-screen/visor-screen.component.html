@@ -1,0 +1,42 @@
+<main class="visor-page">
+	<header class="visor-header">
+		<button type="button" class="visor-button secondary" (click)="volver()">
+			<span class="material-icons">arrow_back</span>
+			Volver a la materia
+		</button>
+		<div>
+			<h1>Visualizador de archivo</h1>
+			<p *ngIf="archivo">{{ archivo.nombre }}</p>
+		</div>
+
+	</header>
+
+	<section class="visor-content" *ngIf="cargando">
+		<p>Obteniendo archivo...</p>
+	</section>
+
+	<section class="visor-content error" *ngIf="!cargando && errorMessage">
+		<span class="material-icons">error_outline</span>
+		<p>{{ errorMessage }}</p>
+	</section>
+
+	<section class="word-preview" *ngIf="!cargando && !errorMessage && esDocumentoWord && archivoHtml" [innerHTML]="archivoHtml"></section>
+
+	<section class="visor-content word-notice" *ngIf="!cargando && !errorMessage && wordNoCompatible">
+		<span class="material-icons">description</span>
+		<p>Este documento Word antiguo no puede visualizarse directamente en el navegador.</p>
+		<button type="button" class="visor-button" (click)="descargar()">
+			<span class="material-icons">download</span>
+			Descargar documento
+		</button>
+	</section>
+
+	<iframe
+		*ngIf="!cargando && !errorMessage && archivoUrl && !esDocumentoWord"
+		class="archivo-frame"
+		[src]="archivoUrl"
+		title="Vista previa del archivo">
+	</iframe>
+
+
+</main>
